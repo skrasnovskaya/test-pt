@@ -11,7 +11,7 @@ import { createNode } from '../utils/nodes';
  *   - visibleItems: number, (for virtualization)
  */
 
-// TODO: element templates
+// TODO: Enhance element templates
 // The HTML Content Template (<template>) element is not supported in IE. Avoid <template>?
 // onClick events
 

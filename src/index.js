@@ -29,18 +29,32 @@ import './styles.css';
             {
                 client: new HrApi(),
                 listOptions: {
-                    container: ['ul', {className: 'list'}],
-                    renderItem: ({ userId, firstName, lastName }) => (`<li class="list-item" onclick="(function(){alert('Hey ${firstName}');return false;})();return false;"><span class="list-item-id">${userId}</span><span class="list-item-delimeter">-</span><span class="list-item-name">${firstName} ${lastName}</span></li>`)
+                    container: ['ul', {id: 'test-list', className: 'list'}],
+                    renderItem: (item) => (`<li class="list-item" data-item=${JSON.stringify(item)}><span class="list-item-id">${item.userId}</span><span class="list-item-delimeter">-</span><span class="list-item-name">${item.firstName} ${item.lastName}</span></li>`)
                 },
                 parentNode: document.getElementById('api-data'),
+                afterRender: () => {
+                    document.getElementById('test-list').addEventListener('click',function(e) {
+                        const item = e.target && e.target.closest('li.list-item');
+                        if (item && item.dataset) {
+                            alert(item.dataset.item);
+                        }
+                    });
+                }
             }
         ];
 
-        presets.forEach(async ({ client, listOptions, parentNode }) => {
+        presets.forEach(async ({ client, listOptions, parentNode, afterRender }) => {
             const data = await client.loadData();
             const list = new List(data, listOptions);
             parentNode.appendChild(list.render());
+
+            if (afterRender) {
+                afterRender();
+            }
         });
+
+        
        
     } catch (e) {
         console.error(e);

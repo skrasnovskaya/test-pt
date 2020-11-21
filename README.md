@@ -21,3 +21,5 @@ Builds files to `dist` folder
 ## Nice to have
 - IoC
 - virtualized list
+- IE support?
+- reconsidered templating

@@ -34,7 +34,7 @@ h2 {
     height: 2.5rem;
     line-height: 2.5rem;
     padding: 0 1rem;
-    list-style: none;
+    cursor: pointer;
 }
 
 .list-item:nth-child(odd) {
