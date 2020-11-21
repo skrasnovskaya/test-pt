@@ -5,44 +5,49 @@ import { HrApi } from './client/hrApi';
 
 import './styles.css';
 
-function componentList() {
-    const data = [{name: "Test1"}, {name: "Test2"}];
-    const list = new List(data);
-    return list.render();
-}
-
-document.body.appendChild(componentList());
-
 (async () => {
     try {
-        // JSON
-        const clientJson = new JsonLocal();
-        const dataJson = await clientJson.loadData();
-        const listJson = new List(dataJson, {
-            renderItem: ({ login }) => (`<div>${login}</div>`)
+        const presets = [
+            {
+                client: new JsonLocal(),
+                listOptions: {
+                    container: ['div', {className: 'block-list'}],
+                    renderItem: ({ title, firstname, lastname }, index) => (`<div class="block-list-item">${index} - <span class="user-name">${title} ${firstname} ${lastname}</span></div>`)
+                },
+                parentNode: document.getElementById('local-json'),
+            },
+            {
+                client: new CsvLocal(),
+                listOptions: {
+                    root: ['table', {className: 'csv-table'}],
+                    container: ['tbody', {className: 'csv-tbody'}],
+                    renderHeader: () => (`<thead><tr><th>N</th><th>Name</th><th>Email</th></tr></thead>`),
+                    renderItem: ({ title, firstname, lastname, email }, index) => (`<tr class="csv-table-row"><td>${index}</td><td>${title} ${firstname} ${lastname}</td><td>${email}</td></tr>`)
+                },
+                parentNode: document.getElementById('local-csv'),
+            },
+            {
+                client: new HrApi(),
+                listOptions: {
+                    container: ['ul', {className: 'list'}],
+                    renderItem: ({ userId, firstName, lastName }) => (`<li class="list-item" onclick="(function(){alert('Hey ${firstName}');return false;})();return false;"><span class="list-item-id">${userId}</span><span class="list-item-delimeter">-</span><span class="list-item-name">${firstName} ${lastName}</span></li>`)
+                },
+                parentNode: document.getElementById('api-data'),
+            }
+        ];
+
+        presets.forEach(async ({ client, listOptions, parentNode }) => {
+            const data = await client.loadData();
+            const list = new List(data, listOptions);
+            parentNode.appendChild(list.render());
         });
-
-        document.body.appendChild(listJson.render());
-
-        // CSV
-        const clientCsv = new CsvLocal();
-        const dataCsv = await clientCsv.loadData();
-        const listCsv = new List(dataCsv, {
-            renderItem: ({ login }) => (`<div>${login}</div>`)
-        });
-
-        document.body.appendChild(listCsv.render());
-
-        // API
-        const clientApi = new HrApi();
-        const dataApi = await clientApi.loadData();
-        const listApi = new List(dataApi, {
-            renderItem: ({ login }) => (`<div>${login}</div>`)
-        });
-
-        document.body.appendChild(listApi.render());
+       
     } catch (e) {
-        // Deal with the fact the chain failed
+        console.error(e);
+
+        const error = document.createElement('div');
+        error.innerHTML = `<span><b>Error:</b> ${e.toString()}</span>`;
+        document.body.appendChild(error);
     }
 })();
   

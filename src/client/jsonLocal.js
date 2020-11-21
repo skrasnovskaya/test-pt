@@ -8,7 +8,7 @@ export class JsonLocal extends Client {
 		this._data = Data;
     }
 
-    async loadData() {
+    loadData() {
         return this._data;
     }
 }
