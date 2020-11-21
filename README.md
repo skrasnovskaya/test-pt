@@ -4,6 +4,7 @@
 
 `./index.html` - template index.html file
 `./src/index.js` - entrypoint
+`./src/data/*` - test data .json, .csv
 
 - Clone repo, run `npm install`. 
 - Run `npm run start`.
@@ -11,5 +12,12 @@
 
 To get built static files run `npm run build`, open `dist/index.html` file in a browser.
 
-### `npm run start` - start dev server (hot reload)
-### `npm run build` - build static files in `dist` folder
+### `npm run start` 
+Starts dev server (hot reload)
+
+### `npm run build`
+Builds files to `dist` folder
+
+## Nice to have
+- IoC
+- virtualized list
