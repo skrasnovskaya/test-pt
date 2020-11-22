@@ -34,16 +34,20 @@ import './styles.css';
                 },
                 parentNode: document.getElementById('api-data'),
                 afterRender: () => {
-                    document.getElementById('test-list').addEventListener('click',function(e) {
-                        const item = e.target && e.target.closest('li.list-item');
-                        if (item && item.dataset) {
-                            alert(item.dataset.item);
-                        }
-                    });
+                    const list = document.getElementById('test-list');
+                    if (list) {
+                        list.addEventListener('click',function(e) {
+                            const item = e.target && e.target.closest('li.list-item');
+                            if (item && item.dataset) {
+                                alert(item.dataset.item);
+                            }
+                        });
+                    }
                 }
             }
         ];
 
+        // 
         presets.forEach(async ({ client, listOptions, parentNode, afterRender }) => {
             const data = await client.loadData();
             const list = new List(data, listOptions);
@@ -54,7 +58,9 @@ import './styles.css';
             }
         });
 
-        
+        // Check list without data passed
+        const listInvalid = new List();
+        document.getElementById('invalid-data').appendChild(listInvalid.render());
        
     } catch (e) {
         console.error(e);

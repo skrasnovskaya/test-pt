@@ -1,4 +1,5 @@
-import { createNode } from '../utils/nodes';
+import { createNode, isDataValid, isRenderTemplateValid, isNodeTemplateValid } from '../utils';
+
 /**
  * List  - render data in a list view
  * 
@@ -11,11 +12,9 @@ import { createNode } from '../utils/nodes';
  *   - visibleItems: number, (for virtualization)
  */
 
+// TODO: Add virtualized list
 // TODO: Enhance element templates
-// The HTML Content Template (<template>) element is not supported in IE. Avoid <template>?
-// onClick events
-
-// Add virtualized list
+// Remarks: The HTML Content Template (<template>) element is not supported in IE. Support onClick events
 
 const defaultElements = {
     root: ['div', { className: 'my-list'}],
@@ -23,21 +22,48 @@ const defaultElements = {
     renderHeader: (keys) => (`<div>${keys.toString()}</div>`),
     renderItem: (item, index) => (`<div>${index}-${item.toString()}</div>`)
 }
+
+const validate = (data, options) => {
+    if (!isDataValid(data)) {
+        console.error('ERROR: The provided data is not an array');
+        return false;
+    }
+
+    const { renderItem, renderHeader, root, container } = options;
+    if (!isRenderTemplateValid(renderItem, [{}, 1]) 
+        || (renderHeader && !isRenderTemplateValid(renderHeader, [{}, 1]))
+        || (root && !isNodeTemplateValid(root))
+        || (container && !isNodeTemplateValid(container))
+    ) {
+        console.error('ERROR: The provided options are incorrect.');
+        return false;
+    }
+
+    return true;
+}
+
 export class List {
-    constructor(data = [], {
-        root = defaultElements.root,
-        container = defaultElements.container,
-        renderHeader,
-        renderItem = defaultElements.renderItem,
-    } = {}) {
-        this._data = data;
-        this._root = root;
-        this._container = container;
-        this._renderHeader = renderHeader;
-        this._renderItem = renderItem;
+    constructor(data, options = {}) {
+        const valid = validate(data, options);
+        this._isValid = valid;
+        if (valid) {
+            this._data = data;
+            this._root = options.root || defaultElements.root;
+            this._container = options.container || defaultElements.container;
+            this._renderHeader = options.renderHeader;
+            this._renderItem = options.renderItem || defaultElements.renderItem;
+        }
+      }
+
+      isValid() {
+        return this._isValid;
       }
 
       render() {
+          if (!this.isValid()) {
+              return this._renderError();
+          }
+
           const component = createNode(...this._root);
 
           if (this._renderHeader) {
@@ -54,5 +80,11 @@ export class List {
           component.appendChild(container);
 
           return component;
+      }
+
+      _renderError() {
+        const element = document.createElement('div');
+        element.innerHTML = '<span style="color: red; font-style: italic;">An error occurred while rendering a List</span>';
+        return element;
       }
 }
