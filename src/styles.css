@@ -1,105 +1,107 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-ul, ol {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 h1 {
-    text-align: center;
+  text-align: center;
 }
 
 h2 {
-    text-align: center;
-    font-size: 1.5rem;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 1rem;
 }
 
 /* --- Different lists --- */
 /* ul */
 .list {
-    max-height: 40rem;
-    overflow: auto;
+  max-height: 40rem;
+  overflow: auto;
 }
 
 .list-item {
-    height: 2.5rem;
-    line-height: 2.5rem;
-    padding: 0 1rem;
-    cursor: pointer;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  padding: 0 1rem;
+  cursor: pointer;
 }
 
 .list-item:nth-child(odd) {
-    background-color: #ececec;
+  background-color: #ececec;
 }
 
 .list-item-id {
-    display: inline-block;
-    width: 24px;
-    text-align: right;
+  display: inline-block;
+  width: 24px;
+  text-align: right;
 }
 
 .list-item-delimeter {
-    display: inline-block;
-    width: 16px;
-    text-align: center;
+  display: inline-block;
+  width: 16px;
+  text-align: center;
 }
 
 .list-item-name {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }
 
 /* div */
 .block-list {
-    max-height: 40rem;
-    overflow: auto;
+  max-height: 40rem;
+  overflow: auto;
 }
 
 .block-list-item {
-    border-bottom: 1px solid #ececec;
-    height: 2rem;
-    line-height: 2rem;
+  border-bottom: 1px solid #ececec;
+  height: 2rem;
+  line-height: 2rem;
 }
 
 .block-list-item:last-child {
-    border-bottom: 0;
+  border-bottom: 0;
 }
 
 .user-name {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }
 
 /* table */
 .csv-table {
-    border-collapse: collapse;
-    display: block;
-    max-height: 40rem;
-    overflow: auto;
+  border-collapse: collapse;
+  display: block;
+  max-height: 40rem;
+  overflow: auto;
 }
 
 .csv-table thead {
-    background-color: #cecece;    
+  background-color: #cecece;
 }
 
 .csv-table th {
-    background-color: #cecece; 
-    position: sticky;
-    top: -1px;
+  background-color: #cecece;
+  position: sticky;
+  top: -1px;
 }
 
-.csv-table th, .csv-table td {
-    padding: 0.625rem 1rem;
-    border: 1px solid #fdfdfd;
+.csv-table th,
+.csv-table td {
+  padding: 0.625rem 1rem;
+  border: 1px solid #fdfdfd;
 }
 
 .csv-table-row:nth-child(even) {
-    background-color: #ececec;
+  background-color: #ececec;
 }

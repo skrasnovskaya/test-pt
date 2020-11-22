@@ -1,6 +1,6 @@
-import { Client } from './client';
+import { Client } from "./client";
 
-import Data from '../data/testtakers.csv';
+import Data from "../data/testtakers.csv";
 
 /**
  * Loaded Data has the following view
@@ -13,31 +13,31 @@ import Data from '../data/testtakers.csv';
  * ]
  */
 export class CsvLocal extends Client {
-    constructor() {
-        super();
-        this._data = Data;
+  constructor() {
+    super();
+    this._data = Data;
+  }
+
+  loadData() {
+    const keys = this._data[0];
+
+    const processedData = [];
+
+    for (let i = 1; i < this._data.length; i++) {
+      const item = this._data[i];
+
+      if (item[0] === "") {
+        // Skip iteration in case of empty item after csv parsing
+        continue;
+      }
+      const obj = keys.reduce((acc, key, index) => {
+        acc[key] = item[index];
+        return acc;
+      }, {});
+
+      processedData.push(obj);
     }
 
-    loadData() {
-        const keys = this._data[0];
-
-        const processedData = [];
-
-        for (let i = 1; i < this._data.length; i++) {
-          const item = this._data[i];
-
-          if (item[0] === '') {
-            // Skip iteration in case of empty item after csv parsing
-            continue;
-          }
-          const obj = keys.reduce((acc, key, index) => {
-            acc[key] = item[index];
-            return acc;
-          }, {});
-
-          processedData.push(obj);
-        }
-
-        return processedData;
-    }
+    return processedData;
+  }
 }

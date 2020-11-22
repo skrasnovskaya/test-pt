@@ -1,7 +1,7 @@
 export class Client {
-    constructor() {}
+  constructor() {}
 
-    async loadData() {
-        throw new Error("Please implement loadData method");
-    }
+  async loadData() {
+    throw new Error("Please implement loadData method");
+  }
 }
