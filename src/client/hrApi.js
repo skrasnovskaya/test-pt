@@ -1,13 +1,10 @@
 import { Client } from "./client";
 import { Api } from "../utils/api";
 
-/**
- * FYI: Request goes to https://hr.oat.taocloud.org/v1/ instead of the provided http://hr.oat.taocloud.org/api/
- */
 export class HrApi extends Client {
-  constructor() {
+  constructor(endpoint) {
     super();
-    this._client = new Api("https://hr.oat.taocloud.org/v1/");
+    this._client = new Api(endpoint);
   }
 
   async loadData() {

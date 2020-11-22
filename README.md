@@ -26,3 +26,4 @@ Builds files to `dist` folder
 - IE support?
 - reconsidered templating
 - loading effect
+- read local files

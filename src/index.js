@@ -9,7 +9,7 @@ import "./styles.css";
   try {
     const presets = [
       {
-        client: new JsonLocal(),
+        client: new JsonLocal("<local-path-to-file>"),
         listOptions: {
           container: ["div", { className: "block-list" }],
           renderItem: ({ title, firstname, lastname }, index) =>
@@ -18,7 +18,7 @@ import "./styles.css";
         parentNode: document.getElementById("local-json"),
       },
       {
-        client: new CsvLocal(),
+        client: new CsvLocal("<local-path-to-file>"),
         listOptions: {
           root: ["table", { className: "csv-table" }],
           container: ["tbody", { className: "csv-tbody" }],
@@ -30,7 +30,7 @@ import "./styles.css";
         parentNode: document.getElementById("local-csv"),
       },
       {
-        client: new HrApi(),
+        client: new HrApi("https://hr.oat.taocloud.org/v1/"),
         listOptions: {
           container: ["ul", { id: "test-list", className: "list" }],
           renderItem: (item) =>

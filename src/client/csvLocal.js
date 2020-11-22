@@ -13,7 +13,7 @@ import Data from "../data/testtakers.csv";
  * ]
  */
 export class CsvLocal extends Client {
-  constructor() {
+  constructor(path) {
     super();
     this._data = Data;
   }
