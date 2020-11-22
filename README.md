@@ -10,6 +10,8 @@
 - Run `npm run start`.
 - Go to `http://localhost:8000/` (should run automatically).
 
+* Run browser with CORS turned off to allow requests from localhost to https://hr.oat.taocloud.org/v1/
+
 To get built static files run `npm run build`, open `dist/index.html` file in a browser.
 
 ### `npm run start` 
@@ -23,3 +25,4 @@ Builds files to `dist` folder
 - virtualized list
 - IE support?
 - reconsidered templating
+- loading effect
